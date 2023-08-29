@@ -12,6 +12,11 @@ type Props = {
   searchParams: SearchParams
 }
 
+// Due to caching errors
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+export const revalidate = 0;
+
 const Home = async ({ searchParams: { category, endcursor } }: Props) => {
   const data = await fetchAllProjects(category, endcursor) as ProjectSearch;
   const paginationOptions = data?.projectSearch?.pageInfo;
