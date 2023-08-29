@@ -1,26 +1,13 @@
-import { ProjectInterface } from '@/common.types';
-import { fetchAllProjects } from '@/lib/actions';
+import { ProjectInterface, ProjectSearch } from '@/common.types';
 import { ProjectCard } from '../UI';
 
-type ProjectSearch = {
-  projectSearch: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  },
-}
-
 type Props = {
-  category?: string | null
+  projects: ProjectSearch
 }
 
-async function Projects({ category }: Props) {
-  const data = await fetchAllProjects(category) as ProjectSearch;
-  const projectsToDisplay = data?.projectSearch?.edges || [];
+async function Projects({ projects }: Props) {
+  
+  const projectsToDisplay = projects?.projectSearch?.edges || [];
 
   if (projectsToDisplay.length === 0) {
     return (
