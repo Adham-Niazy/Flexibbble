@@ -6,3 +6,4 @@ export { default as Categories } from './Categories';
 export { default as ProjectCard } from './ProjectCard';
 export { default as RelatedProjects } from './RelatedProjects';
 export { default as ProjectActions } from './ProjectActions';
+export { default as Pagination } from './Pagination';
