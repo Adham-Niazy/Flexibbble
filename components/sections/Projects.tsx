@@ -14,8 +14,12 @@ type ProjectSearch = {
   },
 }
 
-async function Projects() {
-  const data = await fetchAllProjects() as ProjectSearch;
+type Props = {
+  category?: string | null
+}
+
+async function Projects({ category }: Props) {
+  const data = await fetchAllProjects(category) as ProjectSearch;
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
   if (projectsToDisplay.length === 0) {
