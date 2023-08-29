@@ -3,7 +3,7 @@ import { GraphQLClient } from "graphql-request";
 import { createProjectMutation, createUserMutation, deleteProjectMutation, updateProjectMutation, getProjectByIdQuery, getProjectsOfUserQuery, getUserQuery, projectsQuery } from "@/graphql";
 import { ProjectForm } from "@/common.types";
 import { apiUrl, serverUrl, apiKey } from "@/constants/globals";
-import { uploadImage } from "@/utils";
+import { isBase64DataURL, uploadImage } from "@/utils";
 
 const client = new GraphQLClient(apiUrl);
 
@@ -47,10 +47,6 @@ export const createNewProject = async (form: ProjectForm, creatorId: string, tok
 };
 
 export const updateProject = async (form: ProjectForm, projectId: string, token: string) => {
-  function isBase64DataURL(value: string) {
-    const base64Regex = /^data:image\/[a-z]+;base64,/;
-    return base64Regex.test(value);
-  }
   let updatedForm = { ...form };
   const isUploadingNewImage = isBase64DataURL(form.image);
   if (isUploadingNewImage) {
