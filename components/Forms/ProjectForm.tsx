@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 import FormField from './FormField';
 import { Button } from '../UI';
@@ -60,6 +61,10 @@ const ProjectForm = ({ type, session, project }: Props) => {
 
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if ( !form.category ) {
+      toast.error("You should select category!");
+      return;
+    };
     setSubmitting(true)
     const { token } = await fetchToken()
     try {
@@ -69,15 +74,13 @@ const ProjectForm = ({ type, session, project }: Props) => {
       }
       if (type === "edit") {
         await updateProject(form, project?.id as string, token)
-
         router.push("/")
       }
+      toast.success("Congratulations! 🎉🎊")
     } catch (error) {
-      console.log(error);
-      
-      alert(`Failed to ${type === "create" ? "create" : "edit"} a project. Try again!`);
+      toast.error(`Failed to ${type === "create" ? "create" : "edit"} a project. Try again!`);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 

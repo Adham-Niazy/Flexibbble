@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MouseEventHandler } from "react";
+import Loader from "./Loader";
 
 type Props = {
   title: string,
@@ -24,6 +25,7 @@ const Button = ({ title, leftIcon, rightIcon, handleClick, submitting, type, bgC
     {leftIcon && <Image src={leftIcon} width={14} height={14} alt="left icon" />}
     {title}
     {rightIcon && <Image src={rightIcon} width={14} height={14} alt="right icon" />}
+    {submitting && <Loader />}
   </button>
 )
 
