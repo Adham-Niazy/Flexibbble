@@ -4,8 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast';
 
 import { deleteProject, fetchToken } from '@/lib/actions'
+import Loader from './Loader'
 
 type Props = {
   projectId: string
@@ -17,18 +19,18 @@ const ProjectActions = ({ projectId }: Props) => {
 
 
   const handleDeleteProject = async () => {
-    setIsDeleting(true)
-
-    const { token } = await fetchToken();
-
-    try {
-      await deleteProject(projectId, token);
-
-      router.push("/");
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsDeleting(false)
+    if (confirm("Are you sure you want to delete your project?")) {
+      setIsDeleting(true)
+      const { token } = await fetchToken();
+      try {
+        await deleteProject(projectId, token);
+        router.push("/");
+        toast.success("Deleted Successfully!.")
+      } catch (error) {
+        toast.error("Something wrong happened!")
+      } finally {
+        setIsDeleting(false)
+      }
     }
   }
 
@@ -44,7 +46,11 @@ const ProjectActions = ({ projectId }: Props) => {
         className={`flexCenter delete-action_btn ${isDeleting ? "bg-gray" : "bg-primary-purple"}`}
         onClick={handleDeleteProject}
       >
-        <Image src="/trash.svg" width={15} height={15} alt="delete" />
+        {isDeleting ? (
+          <Loader />
+        ) : (
+          <Image src="/trash.svg" width={15} height={15} alt="delete" />
+        )}
       </button>
     </>
   )

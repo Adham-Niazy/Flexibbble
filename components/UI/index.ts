@@ -7,3 +7,4 @@ export { default as ProjectCard } from './ProjectCard';
 export { default as RelatedProjects } from './RelatedProjects';
 export { default as ProjectActions } from './ProjectActions';
 export { default as Pagination } from './Pagination';
+export { default as Loader } from './Loader';
