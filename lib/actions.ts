@@ -4,6 +4,7 @@ import { createProjectMutation, createUserMutation, deleteProjectMutation, updat
 import { ProjectForm } from "@/common.types";
 import { apiUrl, serverUrl, apiKey } from "@/constants/globals";
 import { isBase64DataURL, uploadImage } from "@/utils";
+import { categoryFilters } from "@/constants";
 
 const client = new GraphQLClient(apiUrl);
 
@@ -26,7 +27,8 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 
 export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
   client.setHeader("x-api-key", apiKey);
-  return makeGraphQLRequest(projectsQuery, { category, endcursor });
+  const categories = category == null ? categoryFilters : [category];
+  return makeGraphQLRequest(projectsQuery, { categories, endcursor });
 };
 
 export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
