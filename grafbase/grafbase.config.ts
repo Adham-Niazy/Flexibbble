@@ -11,6 +11,7 @@ const User = g.model('User', {
   projects: g.relation(() => Project).list().optional(),
 }).auth((rules) => {
   rules.public().read()
+  rules.private().create().delete().update()
 })
 
 // @ts-ignore
