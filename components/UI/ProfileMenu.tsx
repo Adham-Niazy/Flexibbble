@@ -14,15 +14,17 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
   return (
     <div className="flexCenter z-10 flex-col relative">
       <Menu as="div">
-        <Menu.Button className="flexCenter" onMouseEnter={() => setOpenModal(true)} >
+        <Menu.Button className="flexCenter" onMouseEnter={() => setOpenModal(true)}>
           {session?.user?.image && (
-            <Image
-              src={session.user.image}
-              width={40}
-              height={40}
-              className="rounded-full"
-              alt="user profile image"
-            />
+            <Link href={`/profile/${session?.user?.id}`}>
+              <Image
+                src={session.user.image}
+                width={40}
+                height={40}
+                className="rounded-full"
+                alt="user profile image"
+              />
+            </Link>
           )}
         </Menu.Button>
 
@@ -59,7 +61,7 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
                 <Link href={`/profile/${session?.user?.id}`} className="text-sm">Work Preferences</Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href={`/profile/${session?.user?.id}`} className="text-sm">Settings</Link>
+                <Link href={`/profile/settings`} className="text-sm">Settings</Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href={`/profile/${session?.user?.id}`} className="text-sm">Profile</Link>

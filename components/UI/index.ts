@@ -1,5 +1,6 @@
 export { default as Button } from './Button';
 export { default as ProfileMenu } from './ProfileMenu';
+export { default as ProfileSettingsComponent } from './ProfileSettings';
 export { default as Modal } from './Modal';
 export { default as CustomMenu } from './CustomMenu';
 export { default as Categories } from './Categories';
