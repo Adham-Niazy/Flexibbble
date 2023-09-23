@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
-import { createProjectMutation, createUserMutation, deleteProjectMutation, updateProjectMutation, getProjectByIdQuery, getProjectsOfUserQuery, getUserQuery, projectsQuery } from "@/graphql";
+import { createProjectMutation, createUserMutation, deleteProjectMutation, updateProjectMutation, getProjectByIdQuery, getProjectsOfUserQuery, getUserQuery, projectsQuery, updateUserMutation } from "@/graphql";
 import { ProjectForm } from "@/common.types";
 import { apiUrl, serverUrl, apiKey } from "@/constants/globals";
 import { isBase64DataURL, uploadImage } from "@/utils";
@@ -63,6 +63,15 @@ export const updateProject = async (form: ProjectForm, projectId: string, token:
     input: updatedForm,
   };
   return makeGraphQLRequest(updateProjectMutation, variables);
+};
+
+export const updateUserAbout = async (form: { description: string }, userId: string, token: string) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+  const variables = {
+    id: userId,
+    newDesc: form.description,
+  };
+  return makeGraphQLRequest(updateUserMutation, variables);
 };
 
 export const deleteProject = (id: string, token: string) => {

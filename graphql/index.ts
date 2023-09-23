@@ -30,6 +30,20 @@ export const updateProjectMutation = `
 	}
 `;
 
+export const updateUserMutation = `
+mutation UpdatePostById($id: ID!, $newDesc: String) {
+  userUpdate(by: {
+    id: $id
+  }, input: {
+    description: $newDesc
+  }) {
+    user {
+      description
+    }
+  }
+}
+`;
+
 export const deleteProjectMutation = `
   mutation DeleteProject($id: ID!) {
     projectDelete(by: { id: $id }) {
@@ -37,7 +51,7 @@ export const deleteProjectMutation = `
     }
   }
 `;
-      
+
 export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		userCreate(input: $input) {
@@ -117,7 +131,7 @@ export const getUserQuery = `
     }
   }
 `;
-      
+
 export const getProjectsOfUserQuery = `
   query getUserProjects($id: ID!, $last: Int = 4) {
     user(by: { id: $id }) {
