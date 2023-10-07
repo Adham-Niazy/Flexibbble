@@ -11,7 +11,7 @@ async function Projects({ projects }: Props) {
 
   if (projectsToDisplay.length === 0) {
     return (
-      <p className="no-result-text text-center">No projects found, go create some first.</p>
+      <p className="no-result-text text-center">No projects found 🪹, be the first one to create projects in this category 🎨🚀.</p>
     )
   }
 
