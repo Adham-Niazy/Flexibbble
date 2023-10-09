@@ -1,14 +1,17 @@
 import { ProjectInterface, UserProfile } from '@/common.types'
 import Image from 'next/image'
-
 import Link from 'next/link'
+
 import { Button, ProjectCard } from "../UI";
+import { getCurrentUser } from '@/lib/session';
 
 type Props = {
   user: UserProfile;
 }
 
-const ProfilePage = ({ user }: Props) => (
+const ProfilePage = async ({ user }: Props) => {
+  const session = await getCurrentUser();
+  return (
   <section className='flexCenter flex-col max-w-10xl w-full mx-auto paddings'>
     <section className="flexBetween max-lg:flex-col gap-10 w-full">
       <div className='flex items-start flex-col w-full'>
@@ -16,9 +19,11 @@ const ProfilePage = ({ user }: Props) => (
         <p className="text-4xl font-bold mt-10">{user?.name}</p>
         <div className='flex items-center justify-between'>
           <p className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg">{user?.description || 'I’m a Software Engineer 👋'}</p>
-          <Link href={`/profile/settings`} className="flexCenter edit-action_btn">
-            <Image src="/pencile.svg" width={15} height={15} alt="edit" />
-          </Link>
+          {session?.user?.email === user?.email && (
+            <Link href={`/profile/settings`} className="flexCenter edit-action_btn">
+              <Image src="/pencile.svg" width={15} height={15} alt="edit" />
+            </Link>
+          )}
         </div>
 
 
@@ -74,6 +79,6 @@ const ProfilePage = ({ user }: Props) => (
       </div>
     </section>
   </section>
-)
+)};
 
 export default ProfilePage
